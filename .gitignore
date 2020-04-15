@@ -2,4 +2,5 @@ titanic/data
 house_price/data
 venv
 .idea
-*.ipynb
+/*.ipynb
+.vscode
