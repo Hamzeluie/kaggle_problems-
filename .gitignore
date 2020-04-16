@@ -4,4 +4,4 @@ venv
 .idea
 /*.ipynb
 .vscode
-**/*tutorial
+**/tutorial.*
