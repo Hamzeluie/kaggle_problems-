@@ -5,3 +5,4 @@ venv
 /*.ipynb
 .vscode
 **/tutorial.*
+**/scratch*.*
