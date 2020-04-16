@@ -3,6 +3,6 @@ house_price/data
 venv
 .idea
 /*.ipynb
-.vscode
+*.vscode
 **/tutorial.*
 **/scratch*.*

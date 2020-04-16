@@ -13,26 +13,18 @@ train_data['Embarked'] = train_data['Embarked'].fillna(freq_port)
 train_data['Embarked'] = train_data['Embarked'].map({'S': 0, 'C': 1, 'Q': 2}).astype(int)
 
 train_data['Sex'] = train_data['Sex'].map({'female': 1, 'male': 0}).astype(int)
-guess_ages = np.zeros((2, 3))
-for i in range(0, 2):
-    for j in range(0, 3):
 
-        guess_df = train_data[(train_data['Sex'] == i) & \
-                           (train_data['Pclass'] == j + 1)]['Age'].dropna()
-
-        age_guess = guess_df.median()
-
-        # Convert random age float to nearest .5 age
-        guess_ages[i, j] = int(age_guess / 0.5 + 0.5) * 0.5
-
-for i in range(0, 2):
-    for j in range(0, 3):
-        train_data.loc[(train_data.Age.isnull()) & (train_data.Sex == i) & (train_data.Pclass == j + 1), \
-                    'Age'] = guess_ages[i, j]
+for sex in range(0, 2):
+    for pclass in range(0, 3):
+        target_ages = train_data[(train_data['Sex'] == sex) & \
+                           (train_data['Pclass'] == pclass + 1)]['Age'].dropna()
+        age_guess = target_ages.median()
+        train_data.loc[(train_data.Age.isnull()) & (train_data.Sex == sex) & (train_data.Pclass == pclass + 1), \
+                       'Age'] = age_guess
 
 train_data['Age'] = train_data['Age'].astype(int)
-train_data['AgeBand'] = pd.cut(train_data['Age'], 5)
 
+train_data['AgeBand'] = pd.cut(train_data['Age'], 5)
 train_data.loc[ train_data['Age'] <= 16, 'Age'] = 0
 train_data.loc[(train_data['Age'] > 16) & (train_data['Age'] <= 32), 'Age'] = 1
 train_data.loc[(train_data['Age'] > 32) & (train_data['Age'] <= 48), 'Age'] = 2
@@ -40,6 +32,7 @@ train_data.loc[(train_data['Age'] > 48) & (train_data['Age'] <= 64), 'Age'] = 3
 train_data.loc[ train_data['Age'] > 64, 'Age'] = 4
 
 train_data = train_data.drop(['AgeBand'], axis=1)
+
 train_data['FamilySize'] = train_data['SibSp'] + train_data['Parch'] + 1
 train_data['IsAlone'] = 0
 train_data.loc[train_data['FamilySize'] == 1, 'IsAlone'] = 1
