@@ -11,7 +11,7 @@ from sklearn.metrics import mean_absolute_error as mae
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 from xgboost import XGBRegressor
-from scratch1 import dataset
+from preprocess import dataset
 
 
 data_test = dataset[dataset['SalePrice'] == 0.]
