@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 from settings import *  # contain data path
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 
 train_data = pd.read_csv(TRAIN_PATH)
@@ -12,6 +14,10 @@ freq_port = train_data.Embarked.dropna().mode()[0]
 train_data['Embarked'] = train_data['Embarked'].fillna(freq_port)
 train_data['Embarked'] = train_data['Embarked'].map({'S': 0, 'C': 1, 'Q': 2}).astype(int)
 
+grid = sns.FacetGrid(train_data, col='Sex', row='Pclass', size=2.2, aspect=1.6)
+grid.map(plt.hist, 'Age', alpha=.5, bins=20)
+grid.add_legend()
+plt.show()
 train_data['Sex'] = train_data['Sex'].map({'female': 1, 'male': 0}).astype(int)
 
 for sex in range(0, 2):
