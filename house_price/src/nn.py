@@ -72,7 +72,7 @@ sgd = Adam(lr=0.001)
 model.compile(loss='mean_squared_error', optimizer=sgd,
                   metrics=[mean_squared_error])
 
-history = model.fit(x_train, y_train, epochs=1000, callbacks=[lr_schedualer, SGDLearningRateTracker(model)])
+history = model.fit(x_train, y_train, epochs=1, callbacks=[lr_schedualer, SGDLearningRateTracker(model)])
 pred = model.predict(x_test)
 score = mean_squared_error(y_test, model.predict(x_test))
 print(score)

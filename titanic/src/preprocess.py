@@ -4,10 +4,22 @@ from settings import *  # contain data path
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-
+# step 1
 train_data = pd.read_csv(TRAIN_PATH)
-train_data = train_data.drop(['Cabin'], axis=1)
-train_data = train_data.drop(['PassengerId', 'Name'], axis=1)
+test_data = pd.read_csv(TEST_PATH)
+dataset = pd.concat([train_data, test_data])
+print(dataset.keys())
+print(dataset.describe())
+print(dataset.describe(include=[object]))
+print(dataset.info())
+
+null_percentage = lambda x: 100*x.isnull().sum()//x.__len__()
+for col in dataset.keys():
+    print(f'{col}: {null_percentage(dataset[col])}')
+print(dataset.describe(include=[int, float]))
+# step 2
+dataset = dataset.drop(['Cabin'], axis=1)
+dataset = dataset.drop(['PassengerId', 'Name'], axis=1)
 
 train_data = train_data.drop(['Ticket'], axis=1)
 freq_port = train_data.Embarked.dropna().mode()[0]
