@@ -8,3 +8,6 @@ https://www.kaggle.com/c/titanic
 you can get datasets from kaggle after submitting this problem.
 problem datasets url:
 https://www.kaggle.com/c/titanic/data
+
+my linkedin :
+linkedin.com/in/mehdi-hamzeluie-4b6172152
